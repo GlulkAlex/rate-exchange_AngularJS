@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <!-- <html lang="en" ng-app="myApp" class="no-js"> --> <!--<![endif]-->
+<html>
+
+	<head>
+		<title>rate-exchange AngularJS App</title>
+		
+		<!-- <meta charset="utf-8"> -->
+		<!-- <meta charset="ISO-8859-5"> -->
+		<meta charset="Windows-1251">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="stylesheet" 
+			href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<!-- <link rel="stylesheet" href="css/app.css"/> -->
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js">
+		</script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js">
+		</script> -->
+	</head>
+
+	<body>
+
+		<!--[if lt IE 7]>
+				<p class="browsehappy">
+					You are using an <strong>outdated</strong> browser. 
+					Please <a href="http://browsehappy.com/">upgrade your browser</a> 
+					to improve your experience.</p>
+		<![endif]-->
+
+		<div ng-app="" ng-controller="rateController" 			
+			class="container"> 
+			
+			<pre>
+				<!-- ng-model="response"> -->
+				{{response}}
+			</pre>
+			
+			<div class="page-header">
+				<h1>
+					Текущий курс конвертации на {{ currDate | date: 'yyyy-MM-dd HH:mm:ss' }}:</h1>
+				<p>{{ '1 ' + from + ' = ' + rate + ' ' + to }}</p>
+			</div>
+
+			<div class="col-md-3">
+				<ul class="nav nav-pills nav-stacked">
+					<li class="active">
+						<a href="#">
+							Конвертация</a></li>
+					<!-- <li><a href="#">Menu 1</a></li> -->
+					<li ng-repeat="x in response">
+						{{ response.from + ', ' + response.rate + ', ' + response.to }}
+						<a href="#">
+							{{ x }}</a>
+					</li>
+
+				</ul>
+			</div>
+			
+			<form novalidate
+				class="form-inline" 
+				role="form">
+				<!-- class="form-horizontal"  -->
+
+				<div class="container-fluid">	
+					<div class="row">
+						<div class="form-group form-group-sm">
+							<h4 class="bg-primary">конвертация евро 
+								<span class="glyphicon glyphicon-arrow-right"></span>
+								&rArr; руб:</h4>
+							<label class="col-sm-2 control-label"
+								for='eur'>
+								Евро:</label>
+							<div class="col-sm-10">
+								<span class="glyphicon glyphicon-gbp"></span>
+								<input type="text" 
+									ng-model="eur" 
+									class="form-control" name="eur" 
+									placeholder="количество EURO" title="количество EURO">
+										{{' = ' + eur * rate + ' руб.'}}<br>
+							</div>
+							<span class="help-block">
+								</span>
+						<!-- </div>
+					
+						<div class="form-group form-group-sm"> -->
+							<button type="button" class="btn btn-info btn-block">
+								<h4>
+									<!-- class="bg-info"> -->
+									конвертация руб &rArr; евро:</h4>
+									</button>							
+							<label for='rub' 
+								class="col-sm-3 control-label">
+								Рубль:<span class="glyphicon glyphicon-usd">
+									</span>
+										</label>
+							<div class="col-sm-9">
+								<input type="text" 
+									ng-model="rub" 
+									class="form-control" 
+									name="rub" id="rub"
+									placeholder="количество RUB" title="количество RUB">
+										{{' = ' + rub / rate + " евро"}}				
+							</div>
+						</div>
+						
+						<div class="form-group form-group-sm">
+							<div class="col-sm-12">
+								<button type="button" class="btn btn-info">
+									конвертация руб &#x21C6; евро:</button>								
+							</div>
+							<div class="col-sm-4">
+								<label for='rub' 
+								class="control-label glyphicon glyphicon-usd">
+									<!-- <span class="glyphicon glyphicon-usd">
+										</span> -->
+											</label>								
+								<input type="text" 
+									ng-model="rub" ng-change="exchange('rub')" 
+									class="form-control input-sm col-xs-2" name="rub"
+									placeholder="RUB" title="RUB">
+							</div>
+							<div class="col-sm-1">
+									&nbsp;=&nbsp;
+							</div>
+							<div class="col-sm-7">	
+								<label for='eur' 
+									class="control-label glyphicon glyphicon-gbp">
+										&nbsp;
+												</label>
+								<!-- <span class="glyphicon glyphicon-gbp"></span> -->	
+								<input type="text" 
+									ng-model="eur" ng-change="exchange('eur')" 
+									class="form-control input-sm col-xs-3" name="eur"
+									placeholder="EURO" title="EURO">
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			
+			<hr>			
+		</div>
+		
+		<!-- In production use:
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+		-->
+		<!-- <script src="bower_components/angular/angular.js"></script> -->
+		
+	<!--   <script src="bower_components/angular-route/angular-route.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/services.js"></script>
+		<script src="js/controllers.js"></script>
+		<script src="js/filters.js"></script>
+		<script src="js/directives.js"></script> -->
+		<script>
+		function rateController($scope, 
+			$http) {
+				//http://rate-exchange.appspot.com/currency?from=EUR&to=RUB
+				var pathURL = 'http://rate-exchange.appspot.com/',
+					pathQuery = 'currency?',
+					jsonpCallback = 'callback=JSON_CALLBACK',
+					queryParam = '&from=EUR&to=RUB',
+					JSON_CALLBACK
+					;
+				
+				$scope.eur = 0;
+				$scope.rub = 0;
+				//*$scope.currDate = new Date().toLocaleDateString();
+				/*$scope.currDate = new Date().toDateString();
+				console.log('$scope.currDate is: ' + $scope.currDate);*/
+				$scope.currDate = new Date();
+				/*console.log('$scope.currDate.toDateString() is: ' + $scope.currDate.toDateString());*/
+				
+				//*$http({method: $scope.method, url: $scope.url, cache: $templateCache}).
+				$scope.method = 'jsonp';
+				$scope.url = pathURL + pathQuery + jsonpCallback + queryParam;
+				$templateCache = false;
+				$http({
+					method: $scope.method, 
+					url: $scope.url, 
+					cache: $templateCache})
+				//*$http.
+					//jsonp(url, [config])
+					/*jsonp('http://rate-exchange.appspot.com/' + 
+						'currency?' + 
+						'callback=JSON_CALLBACK' + 
+						'&from=EUR&to=RUB')*/
+							.success(function(response, status) {
+								//console.dir(response);
+								//console.dir(JSON_CALLBACK);//undefined
+								//console.log('response is: ' + response);//[object Object]
+								$scope.response = response;
+								$scope.from = response.from;
+								$scope.rate = response.rate;
+								$scope.to = response.to;
+								});
+								
+				$scope.exchange = function(currency) {
+					if (currency == 'rub') {
+						$scope.eur = $scope.rub / $scope.rate;
+					} else {
+						$scope.rub = $scope.eur * $scope.rate;
+					}
+				};								
+		}
+		
+		</script>	
+	</body>
+
+</html>
